@@ -160,7 +160,6 @@ func NewPostMetricsRequestWithBody(server string, environmentUUID EnvironmentPat
 		queryValues := queryURL.Query()
 
 		if params.Cluster != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cluster", runtime.ParamLocationQuery, *params.Cluster); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -172,7 +171,6 @@ func NewPostMetricsRequestWithBody(server string, environmentUUID EnvironmentPat
 					}
 				}
 			}
-
 		}
 
 		queryURL.RawQuery = queryValues.Encode()

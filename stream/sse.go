@@ -46,7 +46,6 @@ func NewSSEClient(
 	proxyMode bool,
 	streamConnected chan struct{},
 	streamDisconnected chan error,
-
 ) *SSEClient {
 	client.Headers["Authorization"] = fmt.Sprintf("Bearer %s", token)
 	client.Headers["API-Key"] = apiKey
@@ -112,7 +111,6 @@ func (c *SSEClient) subscribe(ctx context.Context, environment string, apiKey st
 		}()
 
 		err := c.client.SubscribeWithContext(deadStreamCtx, "*", func(msg *sse.Event) {
-
 			deadStreamTimer.Stop()
 			deadStreamTimer.Reset(timeout)
 
@@ -136,7 +134,6 @@ func (c *SSEClient) subscribe(ctx context.Context, environment string, apiKey st
 				return
 			case out <- event:
 			}
-
 		})
 		if err != nil {
 			deadStreamTimer.Stop()
