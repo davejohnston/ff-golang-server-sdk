@@ -37,7 +37,6 @@ type testFile struct {
 }
 
 func loadFiles() []testFile {
-
 	slice := []testFile{}
 	err := filepath.Walk(source,
 		func(path string, info os.FileInfo, err error) error {
@@ -142,7 +141,6 @@ func TestEvaluator(t *testing.T) {
 						t.Errorf("eval engine got = [%v], want [%v]", got, testCase.Expected)
 					}
 				}
-
 			})
 		}
 	}

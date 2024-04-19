@@ -24,7 +24,6 @@ func NewSlice(value interface{}) Slice {
 // it will first determine what type of slice this is, before casting values
 // to the appropriate type.
 func (s Slice) In(values []string) bool {
-
 	data := validateSlice(s.data)
 	if data == nil {
 		return false

@@ -2,10 +2,11 @@ package test_helpers
 
 import (
 	"fmt"
-	"github.com/harness/ff-golang-server-sdk/rest"
-	"github.com/jarcoal/httpmock"
 	"net/http"
 	"time"
+
+	"github.com/harness/ff-golang-server-sdk/rest"
+	"github.com/jarcoal/httpmock"
 )
 
 func MakeBoolFeatureConfigs(name, defaultVariation, offVariation, state string, preReqs ...rest.Prerequisite) []rest.FeatureConfig {

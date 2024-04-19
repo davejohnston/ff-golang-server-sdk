@@ -1,11 +1,11 @@
 package cache
 
 import (
-	"github.com/harness/ff-golang-server-sdk/logger"
-	lru "github.com/hashicorp/golang-lru"
-
 	"reflect"
 	"time"
+
+	"github.com/harness/ff-golang-server-sdk/logger"
+	lru "github.com/hashicorp/golang-lru"
 )
 
 // LRUCache is thread-safe LAST READ USED Cache

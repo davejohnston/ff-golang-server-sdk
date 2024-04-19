@@ -94,7 +94,6 @@ func (as *AnalyticsService) startTimer(ctx context.Context) {
 
 // PushToQueue is used to queue analytics data to send to the server
 func (as *AnalyticsService) PushToQueue(featureConfig *rest.FeatureConfig, target *evaluation.Target, variation *rest.Variation) {
-
 	ad := analyticsEvent{
 		target:        target,
 		featureConfig: featureConfig,

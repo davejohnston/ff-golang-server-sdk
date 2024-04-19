@@ -2,15 +2,14 @@ package storage
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"sync"
+	"time"
 
 	"github.com/harness/ff-golang-server-sdk/logger"
 
 	jsoniter "github.com/json-iterator/go"
-
-	"os"
-	"path/filepath"
-	"time"
 )
 
 // FileStore object is simple JSON file representation

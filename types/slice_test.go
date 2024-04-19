@@ -3,7 +3,6 @@ package types
 import "testing"
 
 func TestSlice_In(t *testing.T) {
-
 	tests := []struct {
 		name   string
 		fields interface{}

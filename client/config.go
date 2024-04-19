@@ -2,6 +2,10 @@ package client
 
 import (
 	"fmt"
+	"net/http"
+	"os"
+	"time"
+
 	"github.com/cenkalti/backoff/v4"
 	"github.com/harness/ff-golang-server-sdk/cache"
 	"github.com/harness/ff-golang-server-sdk/evaluation"
@@ -10,9 +14,6 @@ import (
 	"github.com/harness/ff-golang-server-sdk/stream"
 	"github.com/harness/ff-golang-server-sdk/types"
 	"github.com/hashicorp/go-retryablehttp"
-	"net/http"
-	"os"
-	"time"
 )
 
 type config struct {

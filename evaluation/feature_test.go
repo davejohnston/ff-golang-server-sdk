@@ -3,13 +3,12 @@ package evaluation
 import (
 	"encoding/json"
 	"reflect"
+	"strconv"
+	"testing"
 
 	"github.com/stretchr/testify/assert"
 
 	"github.com/harness/ff-golang-server-sdk/types"
-
-	"strconv"
-	"testing"
 
 	"github.com/google/uuid"
 )
@@ -23,7 +22,6 @@ const (
 )
 
 func TestFeatureConfig_JsonVariation(t *testing.T) {
-
 	v1Value, err := json.Marshal(map[string]interface{}{
 		"name":    "sdk",
 		"version": "1.0",
@@ -435,7 +433,6 @@ func makeIdentifierRule(values []string, operator, variationToServe string) []Se
 }
 
 func makeFeatureConfig(name, kind string, variation1, variation2, defaultServe Variation, state FeatureState, rules []ServingRule, prereqs []Prerequisite) FeatureConfig {
-
 	return FeatureConfig{
 		DefaultServe: Serve{
 			Variation: &defaultServe.Identifier,
@@ -501,25 +498,29 @@ func TestFeatureConfig_Evaluate(t *testing.T) {
 			featureConfig: makeFeatureConfig(boolFlagName, boolKind, onBool, offBool, onBool, FeatureStateOn, nil, nil),
 			args:          args{&target},
 			want:          Evaluation{Flag: boolFlagName, Variation: onBool},
-			wantErr:       false},
+			wantErr:       false,
+		},
 		{
 			name:          "Test Bool FeatureConfig Evaluate with no rules serves variation offBool when off",
 			featureConfig: makeFeatureConfig(boolFlagName, boolKind, onBool, offBool, onBool, FeatureStateOff, nil, nil),
 			args:          args{&target},
 			want:          Evaluation{Flag: boolFlagName, Variation: offBool},
-			wantErr:       false},
+			wantErr:       false,
+		},
 		{
 			name:          "Test Bool FeatureConfig Evaluate with 'attribute equals rule' serves offBool on match when flag on",
 			featureConfig: makeFeatureConfig(boolFlagName, boolKind, onBool, offBool, onBool, FeatureStateOn, makeIdentifierRule([]string{harness}, equalOperator, offBool.Identifier), nil),
 			args:          args{&target},
 			want:          Evaluation{Flag: boolFlagName, Variation: offBool},
-			wantErr:       false},
+			wantErr:       false,
+		},
 		{
 			name:          "Test Bool FeatureConfig Evaluate with 'attribute equals rule' serves onBool on non-match when flag on",
 			featureConfig: makeFeatureConfig(boolFlagName, boolKind, onBool, offBool, onBool, FeatureStateOn, makeIdentifierRule([]string{"foobar"}, equalOperator, offBool.Identifier), nil),
 			args:          args{&target},
 			want:          Evaluation{Flag: boolFlagName, Variation: onBool},
-			wantErr:       false},
+			wantErr:       false,
+		},
 	}
 	for _, tt := range tests {
 		tc := tt
@@ -579,13 +580,15 @@ func TestFeatureConfig_EvaluateWithPreReqFlags(t *testing.T) {
 			featureConfig: makeFeatureConfig(boolFlagName, boolKind, onBool, offBool, onBool, FeatureStateOn, nil, nil),
 			args:          args{&target, nil},
 			want:          Evaluation{Flag: boolFlagName, Variation: onBool},
-			wantErr:       false},
+			wantErr:       false,
+		},
 		{
 			name:          "Test Bool FeatureConfig Evaluate with no rules & prerequisites serves variation offBool when off",
 			featureConfig: makeFeatureConfig(boolFlagName, boolKind, onBool, offBool, onBool, FeatureStateOff, nil, nil),
 			args:          args{&target, nil},
 			want:          Evaluation{Flag: boolFlagName, Variation: offBool},
-			wantErr:       false},
+			wantErr:       false,
+		},
 		{
 			name:          "Test Bool FeatureConfig Evaluate with 'prereq Foo equals true' serves offBool on match when flag on and Foo flag is off",
 			featureConfig: makeFeatureConfig(boolFlagName, boolKind, onBool, offBool, onBool, FeatureStateOn, nil, []Prerequisite{prereqFooTrue}),
@@ -594,7 +597,8 @@ func TestFeatureConfig_EvaluateWithPreReqFlags(t *testing.T) {
 				map[string]FeatureConfig{"Foo": makeFeatureConfig("Foo", boolKind, onBool, offBool, offBool, FeatureStateOff, nil, nil)},
 			},
 			want:    Evaluation{Flag: boolFlagName, Variation: offBool},
-			wantErr: false},
+			wantErr: false,
+		},
 		{
 			name:          "Test Bool FeatureConfig Evaluate with 'prereq Foo equals true' serves onBool on match when flag on and Foo flag is on",
 			featureConfig: makeFeatureConfig(boolFlagName, boolKind, onBool, offBool, onBool, FeatureStateOn, nil, []Prerequisite{prereqFooTrue}),
@@ -603,7 +607,8 @@ func TestFeatureConfig_EvaluateWithPreReqFlags(t *testing.T) {
 				map[string]FeatureConfig{"Foo": makeFeatureConfig("Foo", boolKind, onBool, offBool, onBool, FeatureStateOn, nil, nil)},
 			},
 			want:    Evaluation{Flag: boolFlagName, Variation: onBool},
-			wantErr: false},
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		tc := tt
@@ -664,7 +669,8 @@ func TestClause_Evaluate(t *testing.T) {
 				segments: Segments{
 					"beta":  {Identifier: "beta", Included: []string{}},
 					"alpha": {Identifier: "alpha", Included: []string{target.Identifier}},
-				}, operator: nil},
+				}, operator: nil,
+			},
 			want: false,
 		},
 		"evaluate returns true when clause value matches segment that target belongs to": {
@@ -674,7 +680,8 @@ func TestClause_Evaluate(t *testing.T) {
 				segments: Segments{
 					"beta":  {Identifier: "beta", Excluded: []string{target.Identifier}},
 					"alpha": {Identifier: "alpha", Included: []string{target.Identifier}},
-				}, operator: nil},
+				}, operator: nil,
+			},
 			want: true,
 		},
 	}
@@ -698,6 +705,7 @@ func TestClause_Evaluate(t *testing.T) {
 func segmentMatchServingRule(segments ...string) ServingRules {
 	return ServingRules{ServingRule{Clauses: Clauses{Clause{Op: segmentMatchOperator, Value: segments}}}}
 }
+
 func variationToTargetMap(segments ...string) []VariationMap {
 	return []VariationMap{
 		{
@@ -1006,7 +1014,8 @@ func TestFeatureConfig_prereqsSatisfied(t *testing.T) {
 				Kind:         "boolean",
 				OffVariation: "false",
 				Prerequisites: []Prerequisite{
-					{Feature: "true-bool",
+					{
+						Feature:    "true-bool",
 						Variations: []string{"true"},
 					},
 				},
@@ -1052,10 +1061,12 @@ func TestFeatureConfig_prereqsSatisfied(t *testing.T) {
 				Kind:         "boolean",
 				OffVariation: "false",
 				Prerequisites: []Prerequisite{
-					{Feature: "true-bool",
+					{
+						Feature:    "true-bool",
 						Variations: []string{"true"},
 					},
-					{Feature: "true-bool2",
+					{
+						Feature:    "true-bool2",
 						Variations: []string{"true"},
 					},
 				},
@@ -1119,7 +1130,8 @@ func TestFeatureConfig_prereqsSatisfied(t *testing.T) {
 				Kind:         "string",
 				OffVariation: "red",
 				Prerequisites: []Prerequisite{
-					{Feature: "true-bool",
+					{
+						Feature:    "true-bool",
 						Variations: []string{"true"},
 					},
 				},
@@ -1165,10 +1177,12 @@ func TestFeatureConfig_prereqsSatisfied(t *testing.T) {
 				Kind:         "string",
 				OffVariation: "red",
 				Prerequisites: []Prerequisite{
-					{Feature: "true-bool",
+					{
+						Feature:    "true-bool",
 						Variations: []string{"true"},
 					},
-					{Feature: "true-bool2",
+					{
+						Feature:    "true-bool2",
 						Variations: []string{"true"},
 					},
 				},
@@ -1232,7 +1246,8 @@ func TestFeatureConfig_prereqsSatisfied(t *testing.T) {
 				Kind:         "boolean",
 				OffVariation: "false",
 				Prerequisites: []Prerequisite{
-					{Feature: "true-bool",
+					{
+						Feature:    "true-bool",
 						Variations: []string{"true"},
 					},
 				},
@@ -1278,7 +1293,8 @@ func TestFeatureConfig_prereqsSatisfied(t *testing.T) {
 				Kind:         "string",
 				OffVariation: "red",
 				Prerequisites: []Prerequisite{
-					{Feature: "true-bool",
+					{
+						Feature:    "true-bool",
 						Variations: []string{"true"},
 					},
 				},
@@ -1324,10 +1340,12 @@ func TestFeatureConfig_prereqsSatisfied(t *testing.T) {
 				Kind:         "string",
 				OffVariation: "red",
 				Prerequisites: []Prerequisite{
-					{Feature: "true-bool",
+					{
+						Feature:    "true-bool",
 						Variations: []string{"true"},
 					},
-					{Feature: "true-bool2",
+					{
+						Feature:    "true-bool2",
 						Variations: []string{"true"},
 					},
 				},
@@ -1391,10 +1409,12 @@ func TestFeatureConfig_prereqsSatisfied(t *testing.T) {
 				Kind:         "boolean",
 				OffVariation: "false",
 				Prerequisites: []Prerequisite{
-					{Feature: "true-bool",
+					{
+						Feature:    "true-bool",
 						Variations: []string{"true"},
 					},
-					{Feature: "true-bool2",
+					{
+						Feature:    "true-bool2",
 						Variations: []string{"true"},
 					},
 				},
@@ -1458,10 +1478,12 @@ func TestFeatureConfig_prereqsSatisfied(t *testing.T) {
 				Kind:         "string",
 				OffVariation: "red",
 				Prerequisites: []Prerequisite{
-					{Feature: "true-bool",
+					{
+						Feature:    "true-bool",
 						Variations: []string{"true"},
 					},
-					{Feature: "true-bool2",
+					{
+						Feature:    "true-bool2",
 						Variations: []string{"true"},
 					},
 				},
@@ -1600,7 +1622,8 @@ func TestCheckPreReqsForPreReqs(t *testing.T) {
 			Kind:         "boolean",
 			OffVariation: "false",
 			Prerequisites: []Prerequisite{
-				{Feature: "flag1",
+				{
+					Feature:    "flag1",
 					Variations: []string{"true"},
 				},
 			},
@@ -1622,7 +1645,8 @@ func TestCheckPreReqsForPreReqs(t *testing.T) {
 			Kind:         "boolean",
 			OffVariation: "false",
 			Prerequisites: []Prerequisite{
-				{Feature: "flag2",
+				{
+					Feature:    "flag2",
 					Variations: []string{"true"},
 				},
 			},
@@ -1644,7 +1668,8 @@ func TestCheckPreReqsForPreReqs(t *testing.T) {
 			Kind:         "string",
 			OffVariation: "blue",
 			Prerequisites: []Prerequisite{
-				{Feature: "flag1",
+				{
+					Feature:    "flag1",
 					Variations: []string{"true"},
 				},
 			},
@@ -1677,7 +1702,8 @@ func TestCheckPreReqsForPreReqs(t *testing.T) {
 			expected: true,
 			flags:    flags,
 			preReqFlagPreReqs: []Prerequisite{
-				{Feature: "flag1",
+				{
+					Feature:    "flag1",
 					Variations: []string{"true"},
 				},
 			},
@@ -1688,7 +1714,8 @@ func TestCheckPreReqsForPreReqs(t *testing.T) {
 			expected: false,
 			flags:    flags,
 			preReqFlagPreReqs: []Prerequisite{
-				{Feature: "flag1",
+				{
+					Feature:    "flag1",
 					Variations: []string{"false"},
 				},
 			},
@@ -1699,7 +1726,8 @@ func TestCheckPreReqsForPreReqs(t *testing.T) {
 			expected: true,
 			flags:    flags,
 			preReqFlagPreReqs: []Prerequisite{
-				{Feature: "flag3",
+				{
+					Feature:    "flag3",
 					Variations: []string{"true"},
 				},
 			},
@@ -1710,7 +1738,8 @@ func TestCheckPreReqsForPreReqs(t *testing.T) {
 			expected: false,
 			flags:    flags,
 			preReqFlagPreReqs: []Prerequisite{
-				{Feature: "flag3",
+				{
+					Feature:    "flag3",
 					Variations: []string{"false"},
 				},
 			},
@@ -1721,7 +1750,8 @@ func TestCheckPreReqsForPreReqs(t *testing.T) {
 			expected: false,
 			flags:    flags,
 			preReqFlagPreReqs: []Prerequisite{
-				{Feature: "mv1",
+				{
+					Feature:    "mv1",
 					Variations: []string{"blue"},
 				},
 			},
@@ -1732,7 +1762,8 @@ func TestCheckPreReqsForPreReqs(t *testing.T) {
 			expected: true,
 			flags:    flags,
 			preReqFlagPreReqs: []Prerequisite{
-				{Feature: "mv1",
+				{
+					Feature:    "mv1",
 					Variations: []string{"red"},
 				},
 			},

@@ -3,7 +3,6 @@ package types
 import "testing"
 
 func TestInteger_Equal(t *testing.T) {
-
 	tests := []struct {
 		name string
 		n    Integer
