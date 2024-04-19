@@ -369,7 +369,6 @@ func TestFFRepository_SetFlags(t *testing.T) {
 		tc := tc
 
 		t.Run(desc, func(t *testing.T) {
-
 			repo := FFRepository{
 				cache:    tc.mocks.cache,
 				callback: tc.mocks.callback,
@@ -469,7 +468,6 @@ func TestFFRepository_SetSegments(t *testing.T) {
 		tc := tc
 
 		t.Run(desc, func(t *testing.T) {
-
 			repo := FFRepository{
 				cache:    tc.mocks.cache,
 				callback: tc.mocks.callback,
@@ -551,7 +549,6 @@ func TestFFRepository_SetFlag(t *testing.T) {
 		tc := tc
 
 		t.Run(desc, func(t *testing.T) {
-
 			repo := FFRepository{
 				cache:    tc.mocks.cache,
 				callback: tc.mocks.callback,
@@ -633,7 +630,6 @@ func TestFFRepository_SetSegment(t *testing.T) {
 		tc := tc
 
 		t.Run(desc, func(t *testing.T) {
-
 			repo := FFRepository{
 				cache:    tc.mocks.cache,
 				callback: tc.mocks.callback,

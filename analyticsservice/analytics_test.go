@@ -44,7 +44,6 @@ func Test_convertInterfaceToString(t *testing.T) {
 	for desc, tc := range testCases {
 		tc := tc
 		t.Run(desc, func(t *testing.T) {
-
 			actual := convertInterfaceToString(tc.input)
 			if actual != tc.expected {
 				t.Errorf("(%s): expected %s, actual %s", desc, tc.expected, actual)

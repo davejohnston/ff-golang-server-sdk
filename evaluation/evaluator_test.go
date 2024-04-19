@@ -363,8 +363,8 @@ func (m TestRepository) GetFlag(identifier string) (rest.FeatureConfig, error) {
 	}
 	return flag, nil
 }
-func (m TestRepository) GetFlags() ([]rest.FeatureConfig, error) {
 
+func (m TestRepository) GetFlags() ([]rest.FeatureConfig, error) {
 	var flags []rest.FeatureConfig
 	for _, f := range m.flags {
 		flags = append(flags, f)
@@ -1668,7 +1668,6 @@ func TestEvaluator_BoolVariation(t *testing.T) {
 			if got != tt.want {
 				t.Errorf("Evaluator.BoolVariation() = %v, want %v", got, tt.want)
 			}
-
 		})
 	}
 }

@@ -44,7 +44,6 @@ func isEnabled(flag string) bool {
 		log.Printf("issue evaluating flag %s, serving default value of false. err: %s", flag, err)
 	}
 	return resultBool
-
 }
 
 func getEnvOrDefault(key, defaultStr string) string {

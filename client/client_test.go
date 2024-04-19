@@ -4,6 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"io"
+	"net/http"
+	"os"
+	"testing"
+	"time"
+
 	"github.com/cenkalti/backoff/v4"
 	"github.com/harness/ff-golang-server-sdk/dto"
 	"github.com/harness/ff-golang-server-sdk/evaluation"
@@ -13,11 +19,6 @@ import (
 	"github.com/harness/ff-golang-server-sdk/types"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
-	"io"
-	"net/http"
-	"os"
-	"testing"
-	"time"
 )
 
 const (
@@ -81,7 +82,6 @@ func registerMultipleResponseResponders(authResponder []httpmock.Responder, targ
 }
 
 func TestCfClient_NewClient(t *testing.T) {
-
 	tests := []struct {
 		name          string
 		newClientFunc func() (*CfClient, error)
@@ -96,7 +96,6 @@ func TestCfClient_NewClient(t *testing.T) {
 			mockResponder: func() {
 				authSuccessResponse := AuthResponse(200, ValidAuthToken)
 				registerResponders(authSuccessResponse, TargetSegmentsResponse, FeatureConfigsResponse)
-
 			},
 			err: nil,
 		},
@@ -112,7 +111,6 @@ func TestCfClient_NewClient(t *testing.T) {
 			mockResponder: func() {
 				authSuccessResponse := AuthResponse(200, ValidAuthToken)
 				registerResponders(authSuccessResponse, TargetSegmentsResponse, FeatureConfigsResponse)
-
 			},
 			err: nil,
 		},
@@ -172,7 +170,6 @@ func TestCfClient_NewClient(t *testing.T) {
 				}`
 				authErrorResponse := AuthResponseDetailed(404, "404", bodyString)
 				registerResponders(authErrorResponse, TargetSegmentsResponse, FeatureConfigsResponse)
-
 			},
 			err: NonRetryableAuthError{
 				StatusCode: "404",
@@ -193,7 +190,6 @@ func TestCfClient_NewClient(t *testing.T) {
 				secondAuthResponse := AuthResponse(200, ValidAuthToken)
 
 				registerMultipleResponseResponders([]httpmock.Responder{firstAuthResponse, secondAuthResponse}, TargetSegmentsResponse, FeatureConfigsResponse)
-
 			},
 			err: nil,
 		},
@@ -219,7 +215,6 @@ func TestCfClient_NewClient(t *testing.T) {
 				responses = append(responses, successResponse)
 
 				registerMultipleResponseResponders(responses, TargetSegmentsResponse, FeatureConfigsResponse)
-
 			},
 			err: nil,
 		},
@@ -241,7 +236,6 @@ func TestCfClient_NewClient(t *testing.T) {
 				}
 
 				registerMultipleResponseResponders(responses, TargetSegmentsResponse, FeatureConfigsResponse)
-
 			},
 			err: RetryableAuthError{
 				StatusCode: "500",
@@ -260,7 +254,6 @@ func TestCfClient_NewClient(t *testing.T) {
 			mockResponder: func() {
 				authSuccessResponse := AuthResponse(200, ValidAuthToken)
 				registerResponders(authSuccessResponse, TargetSegmentsResponse, FeatureConfigsResponse)
-
 			},
 			err: nil,
 		},
@@ -343,7 +336,6 @@ func TestCfClient_NewClient(t *testing.T) {
 				}`
 				authErrorResponse := AuthResponseDetailed(404, "404", bodyString)
 				registerResponders(authErrorResponse, TargetSegmentsResponse, FeatureConfigsResponse)
-
 			},
 			err: InitializeTimeoutError{},
 		},
@@ -351,7 +343,6 @@ func TestCfClient_NewClient(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-
 			if tt.mockResponder != nil {
 				tt.mockResponder()
 			}
@@ -455,7 +446,6 @@ func TestCfClient_StringVariation(t *testing.T) {
 }
 
 func TestCfClient_DefaultVariationReturned(t *testing.T) {
-
 	tests := []struct {
 		name           string
 		clientFunc     func() (*CfClient, error)
@@ -599,7 +589,6 @@ func TestCfClient_DefaultVariationReturned(t *testing.T) {
 			mockResponder: func() {
 				authSuccessResponse := AuthResponse(200, ValidAuthToken)
 				registerResponders(authSuccessResponse, TargetSegmentsResponse, FeatureConfigsResponse)
-
 			},
 			flagIdentifier: "made up",
 			expectedBool:   false,
@@ -677,16 +666,15 @@ func target() *evaluation.Target {
 }
 
 var AuthResponse = func(statusCode int, authToken string) func(req *http.Request) (*http.Response, error) {
-
 	return func(req *http.Request) (*http.Response, error) {
 		// Return the appropriate error based on the provided status code
 		return httpmock.NewJsonResponse(statusCode, rest.AuthenticationResponse{
-			AuthToken: authToken})
+			AuthToken: authToken,
+		})
 	}
 }
 
 var AuthResponseDetailed = func(statusCode int, status string, bodyString string) func(req *http.Request) (*http.Response, error) {
-
 	return func(req *http.Request) (*http.Response, error) {
 		response := &http.Response{
 			StatusCode: statusCode,

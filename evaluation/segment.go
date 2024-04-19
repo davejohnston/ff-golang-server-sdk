@@ -77,7 +77,6 @@ type Segment struct {
 
 // Evaluate segment based on target input
 func (s Segment) Evaluate(target *Target) bool {
-
 	// is target excluded from segment via the exclude list
 	if s.Excluded.ContainsSensitive(target.Identifier) {
 		log.Debugf("target %s excluded from segment %s via exclude list\n", target.Identifier, s.Identifier)

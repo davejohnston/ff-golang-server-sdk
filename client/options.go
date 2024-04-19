@@ -1,6 +1,8 @@
 package client
 
 import (
+	"net/http"
+
 	"github.com/cenkalti/backoff/v4"
 	"github.com/harness/ff-golang-server-sdk/cache"
 	"github.com/harness/ff-golang-server-sdk/evaluation"
@@ -8,7 +10,6 @@ import (
 	"github.com/harness/ff-golang-server-sdk/storage"
 	"github.com/harness/ff-golang-server-sdk/stream"
 	"github.com/harness/ff-golang-server-sdk/types"
-	"net/http"
 )
 
 // ConfigOption is used as return value for advanced client configuration

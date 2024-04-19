@@ -11,9 +11,7 @@ import (
 	"github.com/harness/ff-golang-server-sdk/types"
 )
 
-var (
-	errUnexpectedType = fmt.Errorf("unexpected type")
-)
+var errUnexpectedType = fmt.Errorf("unexpected type")
 
 // Evaluation object is in most cases returned value from evaluation
 // methods and contains results of evaluated feature flag for target object
@@ -33,7 +31,6 @@ type Clause struct {
 
 // Evaluate clause using target but it can be used also with segments if Op field is segmentMach
 func (c *Clause) Evaluate(target *Target, segments Segments, operator types.ValueType) bool {
-
 	// Special case - segment matcher doesn't require a
 	// valid operator.
 	if c.Op == segmentMatchOperator {
