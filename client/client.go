@@ -72,7 +72,6 @@ type CfClient struct {
 // NewCfClient creates a new client instance that connects to CF with the default configuration.
 // For advanced configuration options use ConfigOptions functions
 func NewCfClient(sdkKey string, options ...ConfigOption) (*CfClient, error) {
-
 	//  functional options for config
 	config := newDefaultConfig(getLogger(options...))
 	for _, opt := range options {
@@ -145,7 +144,6 @@ func NewCfClient(sdkKey string, options ...ConfigOption) (*CfClient, error) {
 }
 
 func (c *CfClient) start() {
-
 	ctx, cancel := context.WithCancel(context.Background())
 	go func() {
 		<-c.stop
@@ -270,7 +268,6 @@ func (c *CfClient) streamConnect(ctx context.Context) {
 }
 
 func (c *CfClient) initAuthentication(ctx context.Context) error {
-
 	// Variable to count the number of attempts.
 	var attempts int
 
@@ -306,7 +303,6 @@ func (c *CfClient) initAuthentication(ctx context.Context) error {
 	}
 
 	err := backoff.RetryNotify(operation, retryStrategy, notify)
-
 	if err != nil {
 		// Handle the case where the operation has failed after all retries.
 		c.config.Logger.Errorf("%s Authentication failed after %d attempts: '%s'.", sdk_codes.AuthExceededRetries, attempts, err)
@@ -527,7 +523,6 @@ func (c *CfClient) pullCronJob(ctx context.Context) {
 }
 
 func (c *CfClient) retrieveFlags(ctx context.Context) error {
-
 	<-c.authenticatedChan
 
 	c.mux.RLock()
@@ -552,7 +547,6 @@ func (c *CfClient) retrieveFlags(ctx context.Context) error {
 }
 
 func (c *CfClient) retrieveSegments(ctx context.Context) error {
-
 	<-c.authenticatedChan
 
 	c.mux.RLock()
@@ -577,7 +571,6 @@ func (c *CfClient) retrieveSegments(ctx context.Context) error {
 }
 
 func (c *CfClient) setAnalyticsServiceClient(ctx context.Context) {
-
 	<-c.authenticatedChan
 	c.mux.RLock()
 	defer c.mux.RUnlock()

@@ -29,8 +29,7 @@ func (e RetryableAuthError) Error() string {
 	return fmt.Sprintf("server error: %s: %s", e.StatusCode, e.Message)
 }
 
-type InitializeTimeoutError struct {
-}
+type InitializeTimeoutError struct{}
 
 func (e InitializeTimeoutError) Error() string {
 	return fmt.Sprintf("timeout waiting to initialize")

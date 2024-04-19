@@ -1,9 +1,9 @@
 package cache
 
 import (
-	"github.com/harness/ff-golang-server-sdk/logger"
-
 	"time"
+
+	"github.com/harness/ff-golang-server-sdk/logger"
 )
 
 // Cache wrapper to integrate any 3rd party implementation

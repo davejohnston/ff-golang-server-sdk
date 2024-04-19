@@ -371,7 +371,6 @@ func NewGetFeatureConfigRequest(server string, environmentUUID string, params *G
 		queryValues := queryURL.Query()
 
 		if params.Cluster != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cluster", runtime.ParamLocationQuery, *params.Cluster); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -383,7 +382,6 @@ func NewGetFeatureConfigRequest(server string, environmentUUID string, params *G
 					}
 				}
 			}
-
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -434,7 +432,6 @@ func NewGetFeatureConfigByIdentifierRequest(server string, environmentUUID strin
 		queryValues := queryURL.Query()
 
 		if params.Cluster != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cluster", runtime.ParamLocationQuery, *params.Cluster); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -446,7 +443,6 @@ func NewGetFeatureConfigByIdentifierRequest(server string, environmentUUID strin
 					}
 				}
 			}
-
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -490,7 +486,6 @@ func NewGetAllSegmentsRequest(server string, environmentUUID string, params *Get
 		queryValues := queryURL.Query()
 
 		if params.Cluster != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cluster", runtime.ParamLocationQuery, *params.Cluster); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -502,7 +497,6 @@ func NewGetAllSegmentsRequest(server string, environmentUUID string, params *Get
 					}
 				}
 			}
-
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -553,7 +547,6 @@ func NewGetSegmentByIdentifierRequest(server string, environmentUUID string, ide
 		queryValues := queryURL.Query()
 
 		if params.Cluster != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cluster", runtime.ParamLocationQuery, *params.Cluster); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -565,7 +558,6 @@ func NewGetSegmentByIdentifierRequest(server string, environmentUUID string, ide
 					}
 				}
 			}
-
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -616,7 +608,6 @@ func NewGetEvaluationsRequest(server string, environmentUUID string, target stri
 		queryValues := queryURL.Query()
 
 		if params.Cluster != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cluster", runtime.ParamLocationQuery, *params.Cluster); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -628,7 +619,6 @@ func NewGetEvaluationsRequest(server string, environmentUUID string, target stri
 					}
 				}
 			}
-
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -686,7 +676,6 @@ func NewGetEvaluationByIdentifierRequest(server string, environmentUUID string, 
 		queryValues := queryURL.Query()
 
 		if params.Cluster != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cluster", runtime.ParamLocationQuery, *params.Cluster); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -698,7 +687,6 @@ func NewGetEvaluationByIdentifierRequest(server string, environmentUUID string, 
 					}
 				}
 			}
-
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -753,7 +741,6 @@ func NewPostMetricsRequestWithBody(server string, environmentUUID EnvironmentPat
 		queryValues := queryURL.Query()
 
 		if params.Cluster != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cluster", runtime.ParamLocationQuery, *params.Cluster); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -765,7 +752,6 @@ func NewPostMetricsRequestWithBody(server string, environmentUUID EnvironmentPat
 					}
 				}
 			}
-
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -844,7 +830,6 @@ func NewGetProxyConfigRequest(server string, params *GetProxyConfigParams) (*htt
 		queryValues := queryURL.Query()
 
 		if params.PageNumber != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageNumber", runtime.ParamLocationQuery, *params.PageNumber); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -856,11 +841,9 @@ func NewGetProxyConfigRequest(server string, params *GetProxyConfigParams) (*htt
 					}
 				}
 			}
-
 		}
 
 		if params.PageSize != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "pageSize", runtime.ParamLocationQuery, *params.PageSize); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -872,11 +855,9 @@ func NewGetProxyConfigRequest(server string, params *GetProxyConfigParams) (*htt
 					}
 				}
 			}
-
 		}
 
 		if params.Cluster != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cluster", runtime.ParamLocationQuery, *params.Cluster); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -888,11 +869,9 @@ func NewGetProxyConfigRequest(server string, params *GetProxyConfigParams) (*htt
 					}
 				}
 			}
-
 		}
 
 		if params.Environment != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "environment", runtime.ParamLocationQuery, *params.Environment); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -904,7 +883,6 @@ func NewGetProxyConfigRequest(server string, params *GetProxyConfigParams) (*htt
 					}
 				}
 			}
-
 		}
 
 		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "key", runtime.ParamLocationQuery, params.Key); err != nil {
@@ -953,7 +931,6 @@ func NewStreamRequest(server string, params *StreamParams) (*http.Request, error
 		queryValues := queryURL.Query()
 
 		if params.Cluster != nil {
-
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cluster", runtime.ParamLocationQuery, *params.Cluster); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
@@ -965,7 +942,6 @@ func NewStreamRequest(server string, params *StreamParams) (*http.Request, error
 					}
 				}
 			}
-
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -1541,7 +1517,6 @@ func ParseGetFeatureConfigResponse(rsp *http.Response) (*GetFeatureConfigRespons
 			return nil, err
 		}
 		response.JSON200 = &dest
-
 	}
 
 	return response, nil
@@ -1567,7 +1542,6 @@ func ParseGetFeatureConfigByIdentifierResponse(rsp *http.Response) (*GetFeatureC
 			return nil, err
 		}
 		response.JSON200 = &dest
-
 	}
 
 	return response, nil
@@ -1706,7 +1680,6 @@ func ParseGetEvaluationsResponse(rsp *http.Response) (*GetEvaluationsResponse, e
 			return nil, err
 		}
 		response.JSON200 = &dest
-
 	}
 
 	return response, nil
@@ -1732,7 +1705,6 @@ func ParseGetEvaluationByIdentifierResponse(rsp *http.Response) (*GetEvaluationB
 			return nil, err
 		}
 		response.JSON200 = &dest
-
 	}
 
 	return response, nil
@@ -1911,7 +1883,6 @@ func ParseStreamResponse(rsp *http.Response) (*StreamResponse, error) {
 
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
-
 	"H4sIAAAAAAAC/+w8/XPbNpb/CoZ3M7u9oSw5dtLWv9w5cZJzM218sdO9mYxnByIfJTQUwACgHdWj//0G",
 	"XyRAghLlKN3da35KLALvPb7vD4APScZWFaNApUjOHpIKc7wCCVz/lZW1kMD/pwa+fltJwigur9QK9TAH",
 	"kXGif03OkveUfKoBkRyoJAUBjgrGkVwCskCav3GWsZrKJE2I2vhJAU/ShOIVJGcOZZImIlvCCitMcl2p",

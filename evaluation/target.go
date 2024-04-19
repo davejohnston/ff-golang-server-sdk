@@ -2,11 +2,10 @@ package evaluation
 
 import (
 	"fmt"
+	"reflect"
 	"strings"
 
 	"github.com/harness/ff-golang-server-sdk/types"
-
-	"reflect"
 )
 
 // Target object

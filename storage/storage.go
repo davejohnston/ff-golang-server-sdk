@@ -12,7 +12,6 @@ import (
 // Storage is an interface that can be implemented in order to have control over how
 // the repository of feature toggles is persisted.
 type Storage interface {
-
 	// Reset is called after the repository has fetched the feature toggles from the server.
 	// If persist is true the implementation of this function should call Persist(). The data
 	// passed in here should be owned by the implementer of this interface.

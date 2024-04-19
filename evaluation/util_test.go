@@ -147,7 +147,6 @@ func Test_findVariation(t *testing.T) {
 		Value:      identifierTrue,
 	}
 	falseVariation := rest.Variation{
-
 		Identifier: identifierFalse,
 		Value:      identifierFalse,
 	}
