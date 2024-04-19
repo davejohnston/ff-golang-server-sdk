@@ -5,3 +5,9 @@ name = "go"
 
   [analyzers.meta]
   import_root = "github.com/davejohnston/ff-golang-server-sdk"
+
+[[transformers]]
+name = "gofmt"
+
+[[transformers]]
+name = "gofumpt"
