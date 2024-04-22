@@ -12,6 +12,7 @@ type customTransport struct {
 	getHeaders    HeadersFn
 }
 
+// NewCustomTransport creates a new custom transport
 func NewCustomTransport(baseTransport http.RoundTripper, getHeaderFn HeadersFn) *customTransport {
 	customTransport := &customTransport{
 		baseTransport: baseTransport,
