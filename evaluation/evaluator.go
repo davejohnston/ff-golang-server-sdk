@@ -30,9 +30,7 @@ const (
 	equalSensitiveOperator = "equal_sensitive"
 )
 
-var (
-	ErrNilFlag = errors.New("flag is nil")
-)
+var ErrNilFlag = errors.New("flag is nil")
 
 // Query provides methods for segment and flag retrieval
 type Query interface {
@@ -169,9 +167,8 @@ func (e Evaluator) evaluateRules(servingRules []rest.ServingRule, target *Target
 		if rule.Serve.Variation != nil {
 			e.logger.Debugf("Rule Matched for Target(%v), Variation returned (%v)", target, *rule.Serve.Variation)
 			return *rule.Serve.Variation
-		} else {
-			e.logger.Warnf("No Variation on Serve for Rule (%v), Target (%v)", rule, target)
 		}
+		e.logger.Warnf("No Variation on Serve for Rule (%v), Target (%v)", rule, target)
 	}
 	return ""
 }
@@ -228,7 +225,7 @@ func (e Evaluator) evaluateVariationMap(variationsMap []rest.VariationMap, targe
 }
 
 func (e Evaluator) evaluateFlag(fc rest.FeatureConfig, target *Target) (rest.Variation, error) {
-	var variation = fc.OffVariation
+	variation := fc.OffVariation
 	if fc.State == rest.FeatureStateOn {
 		variation = ""
 		if fc.VariationToTargetMap != nil {
@@ -439,7 +436,7 @@ func (e Evaluator) getVariationForTheFlag(flag *rest.FeatureConfig, target *Targ
 
 // BoolVariation returns boolean evaluation for target
 func (e Evaluator) BoolVariation(identifier string, target *Target, defaultValue bool) (bool, error) {
-	//flagVariation, err := e.evaluate(identifier, target, "boolean")
+	// flagVariation, err := e.evaluate(identifier, target, "boolean")
 	flagVariation, err := e.evaluate(identifier, target)
 	if err != nil {
 		return defaultValue, err
@@ -471,7 +468,7 @@ func (e Evaluator) IntVariation(identifier string, target *Target, defaultValue 
 
 // NumberVariation returns number evaluation for target
 func (e Evaluator) NumberVariation(identifier string, target *Target, defaultValue float64) (float64, error) {
-	//all numbers are stored as ints in the database
+	// all numbers are stored as ints in the database
 	flagVariation, err := e.evaluate(identifier, target)
 	if err != nil {
 		return defaultValue, err
@@ -485,7 +482,8 @@ func (e Evaluator) NumberVariation(identifier string, target *Target, defaultVal
 
 // JSONVariation returns json evaluation for target
 func (e Evaluator) JSONVariation(identifier string, target *Target,
-	defaultValue map[string]interface{}) (map[string]interface{}, error) {
+	defaultValue map[string]interface{},
+) (map[string]interface{}, error) {
 	flagVariation, err := e.evaluate(identifier, target)
 	if err != nil {
 		return defaultValue, err
