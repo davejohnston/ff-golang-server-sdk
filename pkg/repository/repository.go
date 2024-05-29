@@ -376,7 +376,6 @@ func (r FFRepository) getFlagsAndCache(envID string, cacheable bool) ([]rest.Fea
 }
 
 func (r FFRepository) areFlagsOutdated(envID string, flags ...rest.FeatureConfig) bool {
-
 	oldFlags, err := r.getFlags(envID)
 	if err != nil {
 		// If we get an error return true to force a cache refresh
@@ -438,18 +437,10 @@ func (r FFRepository) areSegmentsOutdated(envID string, segments ...rest.Segment
 		}
 	}
 	return false
-
-	for _, segment := range segments {
-		if r.isSegmentOutdated(segment) {
-			return true
-		}
-	}
-	return false
 }
 
 // Close all resources
 func (r FFRepository) Close() {
-
 }
 
 func formatFlagKey(identifier string) string {
