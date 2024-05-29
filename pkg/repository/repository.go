@@ -438,13 +438,6 @@ func (r FFRepository) areSegmentsOutdated(envID string, segments ...rest.Segment
 		}
 	}
 	return false
-
-	for _, segment := range segments {
-		if r.isSegmentOutdated(segment) {
-			return true
-		}
-	}
-	return false
 }
 
 // Close all resources
