@@ -75,7 +75,6 @@ func main() {
 
 		time.Sleep(10 * time.Second)
 	}
-
 }
 
 func getEnvOrDefault(key, defaultStr string) string {
