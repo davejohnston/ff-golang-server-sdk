@@ -169,9 +169,8 @@ func (e Evaluator) evaluateRules(servingRules []rest.ServingRule, target *Target
 		if rule.Serve.Variation != nil {
 			e.logger.Debugf("Rule Matched for Target(%v), Variation returned (%v)", target, *rule.Serve.Variation)
 			return *rule.Serve.Variation
-		} else {
-			e.logger.Warnf("No Variation on Serve for Rule (%v), Target (%v)", rule, target)
 		}
+		e.logger.Warnf("No Variation on Serve for Rule (%v), Target (%v)", rule, target)
 	}
 	return ""
 }
