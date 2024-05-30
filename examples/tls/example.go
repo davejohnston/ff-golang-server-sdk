@@ -90,6 +90,9 @@ func getEnvOrDefault(key, defaultStr string) string {
 func loadCertificates(filePaths []string) (*x509.CertPool, error) {
 	pool := x509.NewCertPool()
 	for _, ca := range filePaths {
+		if !filepath.IsAbs(ca) {
+			return nil, fmt.Errorf("CA certificate path must be absolute: %s", ca)
+		}
 		caBytes, err := os.ReadFile(ca)
 		if err != nil {
 			return nil, fmt.Errorf("failed to read CA certificate from file: %w", err)
