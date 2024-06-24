@@ -75,7 +75,6 @@ func main() {
 
 		time.Sleep(10 * time.Second)
 	}
-
 }
 
 func getEnvOrDefault(key, defaultStr string) string {
@@ -102,4 +101,3 @@ func loadCertificates(filePaths []string) (*x509.CertPool, error) {
 	}
 	return pool, nil
 }
-
